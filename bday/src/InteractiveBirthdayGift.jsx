@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import s1  from './assets/s1.jpg';
-import s2  from './assets/s2.jpg';
-import s3  from './assets/s3.jpg';
-import s4  from './assets/s4.jpg';
-import s5  from './assets/s5.jpg';
-import s6  from './assets/s6.jpg';
-import s7  from './assets/s7.jpg';
-import s8  from './assets/s8.jpg';
-import s9  from './assets/s9.jpg';
+import s1 from './assets/s1.jpg';
+import s2 from './assets/s2.jpg';
+import s3 from './assets/s3.jpg';
+import s4 from './assets/s4.jpg';
+import s5 from './assets/s5.jpg';
+import s6 from './assets/s6.jpg';
+import s7 from './assets/s7.jpg';
+import s8 from './assets/s8.jpg';
+import s9 from './assets/s9.jpg';
 import s10 from './assets/s10.jpg';
 
 const BG_SLIDES = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10];
@@ -200,8 +200,8 @@ function LidFaces({ animState = 'idle' }) {
   const animClass = animState === 'opening'
     ? 'slide-to-top'
     : animState === 'closing'
-    ? 'slide-return-down'
-    : '';
+      ? 'slide-return-down'
+      : '';
 
   return (
     <div className={`lid-wrap ${animClass}`}>
@@ -279,18 +279,15 @@ export default function InteractiveBirthdayGift({
   title = "Happy Birthday! 🎉",
   message = "Wishing you a wonderful day filled with joy, laughter, and everything that brings you happiness! May the year ahead be packed with exciting adventures.",
   senderName = "With love ❤️",
-  remixAudioSrc = "/remix.mp3",
   onOpen,
   onClose,
 }) {
   const [stage, setStage] = useState('closed'); // 'closed' | 'opening' | 'open' | 'closing'
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [bgIndex, setBgIndex] = useState(0);
-  const [bgNext, setBgNext]   = useState(1);
+  const [bgNext, setBgNext] = useState(1);
   const [bgFading, setBgFading] = useState(false);
-  const [isPlayingRemix, setIsPlayingRemix] = useState(false);
   const boxRef = useRef(null);
-  const audioRef = useRef(null);
   const isAnimatingRef = useRef(false);
   const timerRef = useRef([]);
 
@@ -366,42 +363,10 @@ export default function InteractiveBirthdayGift({
     timerRef.current.push(t);
   };
 
-  const toggleRemixMusic = () => {
-    if (isPlayingRemix) {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-      setIsPlayingRemix(false);
-      return;
-    }
-
-    if (audioRef.current && remixAudioSrc) {
-      audioRef.current.play().then(() => {
-        setIsPlayingRemix(true);
-      }).catch((err) => {
-        console.warn('Audio playback failed or file not found, playing festive chime fallback:', err);
-        playFestiveSound();
-        setIsPlayingRemix(true);
-        setTimeout(() => setIsPlayingRemix(false), 2000);
-      });
-    } else {
-      playFestiveSound();
-      setIsPlayingRemix(true);
-      setTimeout(() => setIsPlayingRemix(false), 2000);
-    }
-  };
-
   const handleClose = () => {
     if (stage !== 'open' || isAnimatingRef.current) return;
     isAnimatingRef.current = true;
     if (onClose) onClose();
-
-    // Pause remix music if it is playing
-    if (audioRef.current && !audioRef.current.paused) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-    setIsPlayingRemix(false);
 
     if (prefersReducedMotion) {
       if (boxRef.current) {
@@ -438,14 +403,14 @@ export default function InteractiveBirthdayGift({
   const boxBodyAnimClass = isOpening
     ? 'slide-to-bottom'
     : isClosing
-    ? 'slide-return-up'
-    : '';
+      ? 'slide-return-up'
+      : '';
 
   const sceneAnimClass = isOpening
     ? 'scene-parting-fade'
     : isClosing
-    ? 'scene-parting-return'
-    : '';
+      ? 'scene-parting-return'
+      : '';
 
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden select-none py-10 px-4">
@@ -479,9 +444,8 @@ export default function InteractiveBirthdayGift({
       {/* 3D ROTATING GIFT CONTAINER                                */}
       {/* ========================================================= */}
       <div
-        className={`relative z-10 flex flex-col items-center justify-start pt-8 ${
-          isOpen ? 'hidden' : 'opacity-100'
-        }`}
+        className={`relative z-10 flex flex-col items-center justify-start pt-8 ${isOpen ? 'hidden' : 'opacity-100'
+          }`}
       >
 
 
@@ -496,9 +460,8 @@ export default function InteractiveBirthdayGift({
         >
           {/* Ambient Glow underneath */}
           <div
-            className={`absolute -inset-10 rounded-full bg-gradient-to-tr from-emerald-500/30 via-red-500/20 to-yellow-400/20 blur-3xl transition-opacity duration-700 ${
-              isOpening ? 'opacity-90 scale-125' : 'opacity-40 group-hover:opacity-75'
-            }`}
+            className={`absolute -inset-10 rounded-full bg-gradient-to-tr from-emerald-500/30 via-red-500/20 to-yellow-400/20 blur-3xl transition-opacity duration-700 ${isOpening ? 'opacity-90 scale-125' : 'opacity-40 group-hover:opacity-75'
+              }`}
           />
 
           {/* 3D Perspective Scene */}
@@ -508,11 +471,10 @@ export default function InteractiveBirthdayGift({
             {/* The 3D Gift Box (Retains exact captured 3D rotation) */}
             <div
               ref={boxRef}
-              className={`gift-box-3d ${
-                isClosed
+              className={`gift-box-3d ${isClosed
                   ? 'slow-rotate'
                   : ''
-              }`}
+                }`}
               style={{
                 width: 'var(--box-size)',
                 height: 'var(--box-size)',
@@ -547,13 +509,12 @@ export default function InteractiveBirthdayGift({
         </button>
 
         {/* ── Header + Subtitle — animate with the gift ── */}
-        <div className={`text-center mt-5 select-none transition-all duration-700 ease-in-out ${
-          isOpening
+        <div className={`text-center mt-5 select-none transition-all duration-700 ease-in-out ${isOpening
             ? 'opacity-0 translate-y-6 pointer-events-none'
             : isClosing
-            ? 'animate-slide-down-in'
-            : 'opacity-100 translate-y-0'
-        }`}>
+              ? 'animate-slide-down-in'
+              : 'opacity-100 translate-y-0'
+          }`}>
           <div className="inline-block bg-white/80 backdrop-blur-md px-6 py-3.5 rounded-2xl shadow-[0_6px_25px_rgba(0,0,0,0.18)] border border-white/50 max-w-md mx-auto">
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0e3b1c] mb-1.5">
               {headerText}
@@ -572,13 +533,12 @@ export default function InteractiveBirthdayGift({
       {/* INSIDE THE BOX / CELEBRATION SCENE                        */}
       {/* ========================================================= */}
       <div
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 transition-all duration-800 ease-out ${
-          isOpen
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 transition-all duration-800 ease-out ${isOpen
             ? 'opacity-100 scale-100 pointer-events-auto'
             : isClosing
-            ? 'opacity-0 scale-75 pointer-events-none'
-            : 'opacity-0 scale-125 pointer-events-none'
-        }`}
+              ? 'opacity-0 scale-75 pointer-events-none'
+              : 'opacity-0 scale-125 pointer-events-none'
+          }`}
       >
         {/* Background Radiant Glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
@@ -591,35 +551,7 @@ export default function InteractiveBirthdayGift({
         <div className="relative z-10 w-full max-w-lg mx-auto text-center flex flex-col items-center animate-[fadeSlideUp_0.6s_ease-out_both] px-4">
           {/* Message */}
           <p className="text-white text-lg sm:text-xl md:text-2xl leading-relaxed font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] mb-8 max-h-[60vh] overflow-y-auto px-4">
-            {typeof message === 'string' && message.includes('(remix payan sya)') ? (
-              message.split('(remix payan sya)').map((part, index, arr) => (
-                <React.Fragment key={index}>
-                  {part}
-                  {index < arr.length - 1 && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleRemixMusic();
-                      }}
-                      className={`inline-flex items-center gap-1.5 align-middle mx-1 px-3 py-1 rounded-full border text-sm sm:text-base font-bold transition-all duration-300 cursor-pointer shadow-md active:scale-95 ${
-                        isPlayingRemix
-                          ? 'bg-amber-400 text-stone-900 border-yellow-200 shadow-[0_0_20px_rgba(251,191,36,0.9)] scale-105 animate-pulse'
-                          : 'bg-emerald-600/80 hover:bg-emerald-500 text-yellow-300 border-yellow-400/50 hover:scale-105 shadow-[0_2px_10px_rgba(0,0,0,0.4)]'
-                      }`}
-                      title={isPlayingRemix ? 'Pause Remix' : 'Play Remix! 🎵'}
-                    >
-                      <span>{isPlayingRemix ? '⏸️' : '🎵'}</span>
-                      <span className="underline decoration-dotted underline-offset-2">
-                        (remix payan sya)
-                      </span>
-                    </button>
-                  )}
-                </React.Fragment>
-              ))
-            ) : (
-              message
-            )}
+            {message}
           </p>
 
           {/* "Close Gift" Button */}
@@ -632,14 +564,6 @@ export default function InteractiveBirthdayGift({
             <span>Close Gift 🎁</span>
           </button>
         </div>
-
-        {/* Audio element for the remix track */}
-        <audio
-          ref={audioRef}
-          src={remixAudioSrc}
-          onEnded={() => setIsPlayingRemix(false)}
-          preload="auto"
-        />
       </div>
     </div>
   );
