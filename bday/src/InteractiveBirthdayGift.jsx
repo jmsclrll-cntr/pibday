@@ -468,7 +468,7 @@ export default function InteractiveBirthdayGift({
 
           {/* 3D Perspective Scene */}
           <div
-            className={`perspective-scene relative flex items-center justify-center min-h-[340px] sm:min-h-[390px] ${sceneAnimClass}`}
+            className={`perspective-scene relative flex items-center justify-center min-h-[420px] sm:min-h-[490px] md:min-h-[540px] ${sceneAnimClass}`}
           >
             {/* The 3D Gift Box (Retains exact captured 3D rotation) */}
             <div
