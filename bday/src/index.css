@@ -1,0 +1,477 @@
+/* ============================================================
+   Birthday Gift Box — Custom Styles
+   Tailwind handles most styling; this file adds 3D transforms,
+   keyframe animations, and effects that require custom CSS.
+   ============================================================ */
+
+/* ---------- Google Fonts ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap');
+
+/* ---------- Tailwind Layers ---------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Base Overrides ---------- */
+@layer base {
+  html {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* ==============================================
+   3D PERSPECTIVE & TRANSFORM UTILITIES
+   ============================================== */
+
+/* Perspective container for the entire scene */
+.perspective-scene {
+  perspective: 1400px;
+  perspective-origin: 50% 36%;
+}
+
+/* The gift box wrapper — preserves 3D for children */
+.gift-box-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Continuous slow 3D rotation */
+@keyframes continuousSlowRotate {
+  0% {
+    transform: rotateX(-16deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(-16deg) rotateY(360deg);
+  }
+}
+
+.gift-box-3d.slow-rotate {
+  animation: continuousSlowRotate 15s linear infinite;
+}
+
+.gift-box-3d.paused {
+  animation-play-state: paused;
+}
+
+/* =======================================================
+   CLEAN & SMOOTH UNBOXING SEQUENCE (NO BOUNCE / NO TILT / NO SHAKE)
+   1. Click gift
+   2. Top lid smoothly moves upward and disappears
+   3. Box smoothly moves downward
+   4. Brief pause
+   5. Camera smoothly zooms into the open gift
+   6. Smooth transition into next scene
+   ======================================================= */
+
+/* 3D Lid smoothly slides straight UP to the top (NO opacity to prevent 3D flattening) */
+@keyframes lidSlideUp3D {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-280px);
+  }
+}
+
+.lid-wrap.slide-to-top {
+  animation: lidSlideUp3D 0.75s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+}
+
+/* Lid closing: smoothly slides DOWNWARD back onto the box */
+@keyframes lidSlideDownReturn {
+  0% {
+    transform: translateY(-280px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.lid-wrap.slide-return-down {
+  animation: lidSlideDownReturn 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* 3D Box body smoothly slides straight DOWN to the bottom (NO opacity to prevent 3D flattening) */
+@keyframes boxSlideDown3D {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(280px);
+  }
+}
+
+.box-body-3d.slide-to-bottom {
+  animation: boxSlideDown3D 0.75s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+}
+
+/* Box closing: smoothly slides UPWARD back to meet the lid */
+@keyframes boxSlideUpReturn {
+  0% {
+    transform: translateY(280px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.box-body-3d.slide-return-up {
+  animation: boxSlideUpReturn 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Box body wrapper preserves 3D for faces */
+.box-body-3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* Outer scene fade-out into the celebration scene */
+@keyframes sceneFadeOut {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.scene-parting-fade {
+  animation: sceneFadeOut 0.75s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+}
+
+/* Outer scene fade-in during closing */
+@keyframes sceneFadeIn {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.scene-parting-return {
+  animation: sceneFadeIn 0.65s ease-in-out forwards;
+}
+
+/* Pause the box idle rotation when clicked */
+.gift-box-3d.paused-box {
+  animation-play-state: paused;
+}
+
+/* Soft, clean glow transition into the next scene */
+@keyframes smoothSceneFade {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-smooth-fade {
+  animation: smoothSceneFade 0.85s ease-in-out forwards;
+}
+
+/* Sizing variables for 3D gift box */
+:root {
+  --box-size: 240px;
+  --box-half: 120px;
+  --lid-size: 258px;
+  --lid-half: 129px;
+  --lid-height: 50px;
+  --lid-height-half: 25px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --box-size: 280px;
+    --box-half: 140px;
+    --lid-size: 300px;
+    --lid-half: 150px;
+    --lid-height: 58px;
+    --lid-height-half: 29px;
+  }
+}
+
+/* Each face of the box */
+.box-face {
+  position: absolute;
+  width: var(--box-size);
+  height: var(--box-size);
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  box-sizing: border-box;
+}
+
+/* ---------- BOX BODY FACES (bottom cube) ---------- */
+.face-front  { transform: translateZ(calc(var(--box-half))); }
+.face-back   { transform: rotateY(180deg) translateZ(calc(var(--box-half))); }
+.face-left   { transform: rotateY(-90deg) translateZ(calc(var(--box-half))); }
+.face-right  { transform: rotateY(90deg) translateZ(calc(var(--box-half))); }
+.face-bottom { transform: rotateX(-90deg) translateZ(calc(var(--box-half))); }
+.face-top    { transform: rotateX(90deg) translateZ(calc(var(--box-half))); }
+
+/* ---------- LID WRAPPER & FACES ---------- */
+.lid-wrap {
+  position: absolute;
+  top: calc(-1 * var(--lid-height) + 2px);
+  left: calc((var(--box-size) - var(--lid-size)) / 2);
+  width: var(--lid-size);
+  height: var(--lid-height);
+  transform-style: preserve-3d;
+  transform-origin: center top calc(-1 * var(--lid-half));
+  transition: transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease 0.3s;
+}
+
+/* Lid flies backward and upward on open */
+.lid-wrap.open {
+  transform: translateY(-180px) translateZ(-160px) rotateX(-135deg) scale(0.85);
+  opacity: 0;
+}
+
+.lid-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  box-sizing: border-box;
+}
+
+.lid-front  { width: var(--lid-size); height: var(--lid-height); transform: translateZ(calc(var(--lid-half))); }
+.lid-back   { width: var(--lid-size); height: var(--lid-height); transform: rotateY(180deg) translateZ(calc(var(--lid-half))); }
+.lid-left   { width: var(--lid-size); height: var(--lid-height); transform: rotateY(-90deg) translateZ(calc(var(--lid-half))); }
+.lid-right  { width: var(--lid-size); height: var(--lid-height); transform: rotateY(90deg) translateZ(calc(var(--lid-half))); }
+
+/* Lid Top correctly caps the top of the lid rim perfectly */
+.lid-top { 
+  width: var(--lid-size); 
+  height: var(--lid-size); 
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+  transform: translateY(calc(-1 * var(--lid-half))) rotateX(90deg);
+  backface-visibility: visible !important;
+}
+
+/* ==============================================
+   KEYFRAME ANIMATIONS
+   ============================================== */
+
+/* Bounce hint text */
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.animate-bounce-hint {
+  animation: bounceHint 1.6s ease-in-out infinite;
+}
+
+/* Soft pulsing glow behind the box */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(1.08); }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Confetti particle fall */
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(600px) rotate(720deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* Floating hearts */
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-30px) scale(1);
+  }
+  100% {
+    transform: translateY(-300px) scale(0.6) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+/* Birthday message zoom-in */
+@keyframes messageReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.animate-message-reveal {
+  animation: messageReveal 0.7s 0.4s ease-out both;
+}
+
+/* Sparkle shimmer on ribbon */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.ribbon-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.35) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Stars twinkling in the background */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%      { opacity: 1;   transform: scale(1.2); }
+}
+
+/* Float animation for closed gift box */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.5deg);
+  }
+}
+
+/* Wiggle animation when gift is clicked */
+@keyframes boxWiggle {
+  0% { transform: scale(1) rotate(0deg); }
+  20% { transform: scale(1.05) rotate(-3deg); }
+  40% { transform: scale(1.08) rotate(3deg); }
+  60% { transform: scale(1.06) rotate(-2deg); }
+  80% { transform: scale(1.03) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Close button fade-in */
+@keyframes fadeSlideUp {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-slide-up {
+  animation: fadeSlideUp 0.5s 0.8s ease-out both;
+}
+
+/* Text slides down into view */
+@keyframes slideDownIn {
+  0%   { opacity: 0; transform: translateY(-24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down-in {
+  animation: slideDownIn 0.6s ease-out both;
+}
+
+/* ==============================================
+   CONFETTI & HEART PARTICLES (generated via JS)
+   ============================================== */
+.confetti-particle {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 1000;
+  animation: confettiFall var(--fall-duration, 3s) var(--fall-delay, 0s) ease-in forwards;
+}
+
+.heart-particle {
+  position: absolute;
+  font-size: 1.5rem;
+  pointer-events: none;
+  z-index: 100;
+  animation: floatHeart var(--float-duration, 3s) var(--float-delay, 0s) ease-out forwards;
+}
+
+/* ==============================================
+   BACKGROUND GRADIENT & STARS
+   ============================================== */
+.bg-birthday {
+  background: linear-gradient(135deg, #1a0533 0%, #2d1052 30%, #4a1a6b 60%, #6b2182 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--twinkle-dur, 3s) var(--twinkle-delay, 0s) ease-in-out infinite;
+}
+
+/* ==============================================
+   RESPONSIVE SIZING
+   ============================================== */
+
+/* Mobile: smaller box */
+:root {
+  --box-size: 160px;
+  --box-half: 80px;
+  --lid-size: 176px;
+  --lid-half: 88px;
+  --lid-height: 40px;
+  --lid-height-half: 20px;
+}
+
+/* Tablet+ */
+@media (min-width: 640px) {
+  :root {
+    --box-size: 200px;
+    --box-half: 100px;
+    --lid-size: 220px;
+    --lid-half: 110px;
+    --lid-height: 50px;
+    --lid-height-half: 25px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  :root {
+    --box-size: 240px;
+    --box-half: 120px;
+    --lid-size: 264px;
+    --lid-half: 132px;
+    --lid-height: 60px;
+    --lid-height-half: 30px;
+  }
+}
