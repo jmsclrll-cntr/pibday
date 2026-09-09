@@ -1,0 +1,7 @@
+{
+  "name": "pibday",
+  "private": true,
+  "scripts": {
+    "build": "cd bday && npm install && npm run build"
+  }
+}
