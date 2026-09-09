@@ -550,29 +550,6 @@ export default function InteractiveBirthdayGift({
           <div className="w-[45rem] h-[45rem] rounded-full bg-emerald-500/15 blur-3xl animate-pulse" />
           <div className="absolute w-[32rem] h-[32rem] rounded-full bg-red-500/20 blur-2xl" />
           <div className="absolute w-[18rem] h-[18rem] rounded-full bg-amber-400/20 blur-xl" />
-
-          {/* Floating celebratory particles */}
-          {[
-            { emoji: '✨', top: '12%', left: '16%' },
-            { emoji: '🎈', top: '18%', right: '18%' },
-            { emoji: '💖', top: '78%', left: '16%' },
-            { emoji: '🎉', top: '82%', right: '18%' },
-            { emoji: '⭐', top: '30%', left: '12%' },
-            { emoji: '🌟', top: '28%', right: '14%' },
-          ].map((item, idx) => (
-            <span
-              key={idx}
-              className="absolute text-3xl sm:text-4xl opacity-85 select-none animate-[float_5s_ease-in-out_infinite]"
-              style={{
-                top: item.top,
-                left: item.left,
-                right: item.right,
-                animationDelay: `${idx * 0.6}s`,
-              }}
-            >
-              {item.emoji}
-            </span>
-          ))}
         </div>
 
         {/* Birthday Message (Emerges directly over background without card box/container) */}
