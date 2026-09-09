@@ -18,7 +18,7 @@ function App() {
         laging kumakanta (remix payan sya), palatawa at pala dura (yuck HAHAHAHAHWHHWW) 
         at wag lagi mainit ang ulo. Kasi miss na miss ko yung dating ikaw 😔😞. 
         Wala nako masabi speechless kasi ako sayo HAHAHAHAHA, yun lang, see you
-         soonnnnnn, imissyouuusomuch, mwaaaaaa!"
+         soonnnnnn, imissyouuusomuch, mwaaaaaa!❤️"
         senderName="With love & hugs ❤️"
       />
     </main>
