@@ -575,41 +575,19 @@ export default function InteractiveBirthdayGift({
           ))}
         </div>
 
-        {/* Birthday Greeting Card (Emerged from inside the box) */}
-        <div className="relative z-10 w-full max-w-lg mx-auto bg-white/10 backdrop-blur-xl border border-white/25 rounded-3xl p-6 sm:p-10 shadow-[0_25px_70px_rgba(0,0,0,0.7)] text-center animate-[fadeSlideUp_0.6s_ease-out_both]">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/25 border border-emerald-400/40 text-emerald-200 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-5">
-            <span>Special Birthday Gift for {recipientName}</span>
-          </div>
-
-          {/* Title */}
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-yellow-200 to-red-300 drop-shadow mb-4">
-            {title}
-          </h1>
-
-          {/* Ribbon divider */}
-          <div className="flex items-center justify-center gap-3 my-4">
-            <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-red-400" />
-            <span className="text-red-400 text-xl">🎁</span>
-            <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-red-400" />
-          </div>
-
+        {/* Birthday Message (Emerges directly over background without card box/container) */}
+        <div className="relative z-10 w-full max-w-lg mx-auto text-center flex flex-col items-center animate-[fadeSlideUp_0.6s_ease-out_both] px-4">
           {/* Message */}
-          <p className="text-emerald-50 text-base sm:text-lg leading-relaxed font-normal mb-8 max-h-[45vh] overflow-y-auto px-2">
+          <p className="text-white text-lg sm:text-xl md:text-2xl leading-relaxed font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] mb-8 max-h-[60vh] overflow-y-auto px-4">
             {message}
           </p>
-
-          {/* Sender */}
-          <div className="text-emerald-300 font-medium text-sm sm:text-base italic mb-8">
-            {senderName}
-          </div>
 
           {/* "Close Gift" Button */}
           <button
             type="button"
             onClick={handleClose}
             aria-label="Close gift and return to box"
-            className="w-full sm:w-auto min-h-[48px] px-8 py-3 rounded-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold text-base shadow-[0_8px_25px_rgba(16,185,129,0.35)] border border-white/25 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300 transition-all duration-200 cursor-pointer"
+            className="w-full sm:w-auto min-h-[48px] px-8 py-3 rounded-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold text-base shadow-[0_8px_25px_rgba(0,0,0,0.5)] border border-white/30 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300 transition-all duration-200 cursor-pointer"
           >
             <span>Close Gift 🎁</span>
           </button>
