@@ -279,6 +279,7 @@ export default function InteractiveBirthdayGift({
   title = "Happy Birthday! 🎉",
   message = "Wishing you a wonderful day filled with joy, laughter, and everything that brings you happiness! May the year ahead be packed with exciting adventures.",
   senderName = "With love ❤️",
+  remixAudioSrc = "/remix.mp3",
   onOpen,
   onClose,
 }) {
@@ -287,7 +288,9 @@ export default function InteractiveBirthdayGift({
   const [bgIndex, setBgIndex] = useState(0);
   const [bgNext, setBgNext]   = useState(1);
   const [bgFading, setBgFading] = useState(false);
+  const [isPlayingRemix, setIsPlayingRemix] = useState(false);
   const boxRef = useRef(null);
+  const audioRef = useRef(null);
   const isAnimatingRef = useRef(false);
   const timerRef = useRef([]);
 
@@ -363,10 +366,42 @@ export default function InteractiveBirthdayGift({
     timerRef.current.push(t);
   };
 
+  const toggleRemixMusic = () => {
+    if (isPlayingRemix) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setIsPlayingRemix(false);
+      return;
+    }
+
+    if (audioRef.current && remixAudioSrc) {
+      audioRef.current.play().then(() => {
+        setIsPlayingRemix(true);
+      }).catch((err) => {
+        console.warn('Audio playback failed or file not found, playing festive chime fallback:', err);
+        playFestiveSound();
+        setIsPlayingRemix(true);
+        setTimeout(() => setIsPlayingRemix(false), 2000);
+      });
+    } else {
+      playFestiveSound();
+      setIsPlayingRemix(true);
+      setTimeout(() => setIsPlayingRemix(false), 2000);
+    }
+  };
+
   const handleClose = () => {
     if (stage !== 'open' || isAnimatingRef.current) return;
     isAnimatingRef.current = true;
     if (onClose) onClose();
+
+    // Pause remix music if it is playing
+    if (audioRef.current && !audioRef.current.paused) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    setIsPlayingRemix(false);
 
     if (prefersReducedMotion) {
       if (boxRef.current) {
@@ -556,7 +591,35 @@ export default function InteractiveBirthdayGift({
         <div className="relative z-10 w-full max-w-lg mx-auto text-center flex flex-col items-center animate-[fadeSlideUp_0.6s_ease-out_both] px-4">
           {/* Message */}
           <p className="text-white text-lg sm:text-xl md:text-2xl leading-relaxed font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] mb-8 max-h-[60vh] overflow-y-auto px-4">
-            {message}
+            {typeof message === 'string' && message.includes('(remix payan sya)') ? (
+              message.split('(remix payan sya)').map((part, index, arr) => (
+                <React.Fragment key={index}>
+                  {part}
+                  {index < arr.length - 1 && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleRemixMusic();
+                      }}
+                      className={`inline-flex items-center gap-1.5 align-middle mx-1 px-3 py-1 rounded-full border text-sm sm:text-base font-bold transition-all duration-300 cursor-pointer shadow-md active:scale-95 ${
+                        isPlayingRemix
+                          ? 'bg-amber-400 text-stone-900 border-yellow-200 shadow-[0_0_20px_rgba(251,191,36,0.9)] scale-105 animate-pulse'
+                          : 'bg-emerald-600/80 hover:bg-emerald-500 text-yellow-300 border-yellow-400/50 hover:scale-105 shadow-[0_2px_10px_rgba(0,0,0,0.4)]'
+                      }`}
+                      title={isPlayingRemix ? 'Pause Remix' : 'Play Remix! 🎵'}
+                    >
+                      <span>{isPlayingRemix ? '⏸️' : '🎵'}</span>
+                      <span className="underline decoration-dotted underline-offset-2">
+                        (remix payan sya)
+                      </span>
+                    </button>
+                  )}
+                </React.Fragment>
+              ))
+            ) : (
+              message
+            )}
           </p>
 
           {/* "Close Gift" Button */}
@@ -569,6 +632,14 @@ export default function InteractiveBirthdayGift({
             <span>Close Gift 🎁</span>
           </button>
         </div>
+
+        {/* Audio element for the remix track */}
+        <audio
+          ref={audioRef}
+          src={remixAudioSrc}
+          onEnded={() => setIsPlayingRemix(false)}
+          preload="auto"
+        />
       </div>
     </div>
   );

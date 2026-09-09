@@ -20,6 +20,7 @@ function App() {
         Wala nako masabi speechless kasi ako sayo HAHAHAHAHA, yun lang, see you
          soonnnnnn, imissyouuusomuch, mwaaaaaa!❤️"
         senderName="With love & hugs ❤️"
+        remixAudioSrc="/remix.mp3"
       />
     </main>
   );
