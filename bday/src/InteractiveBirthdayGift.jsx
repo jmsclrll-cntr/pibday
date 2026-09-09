@@ -305,6 +305,14 @@ export default function InteractiveBirthdayGift({
     };
   }, []);
 
+  // Preload all background images so they display smoothly
+  useEffect(() => {
+    BG_SLIDES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   // Continuous background crossfade every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -428,8 +436,8 @@ export default function InteractiveBirthdayGift({
             transition: bgFading ? 'opacity 1.2s ease-in-out' : 'none',
           }}
         />
-        {/* Dark overlay — dims background images */}
-        <div className="absolute inset-0 bg-black/[0.50]" />
+        {/* Light subtle overlay so photos remain clear and vibrant */}
+        <div className="absolute inset-0 bg-black/15" />
       </div>
 
       {/* ========================================================= */}
@@ -504,19 +512,21 @@ export default function InteractiveBirthdayGift({
         </button>
 
         {/* ── Header + Subtitle — animate with the gift ── */}
-        <div className={`text-center mt-4 select-none transition-all duration-700 ease-in-out ${
+        <div className={`text-center mt-5 select-none transition-all duration-700 ease-in-out ${
           isOpening
             ? 'opacity-0 translate-y-6 pointer-events-none'
             : isClosing
             ? 'animate-slide-down-in'
             : 'opacity-100 translate-y-0'
         }`}>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-400 drop-shadow-[0_2px_12px_rgba(52,211,153,0.5)] mb-1">
-            {headerText}
-          </h1>
-          <p className="text-sm sm:text-base font-medium tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-red-300 via-rose-200 to-red-400 drop-shadow-[0_1px_8px_rgba(248,113,113,0.4)] max-w-xs mx-auto">
-            {subText}
-          </p>
+          <div className="inline-block bg-white/80 backdrop-blur-md px-6 py-3.5 rounded-2xl shadow-[0_6px_25px_rgba(0,0,0,0.18)] border border-white/50 max-w-md mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0e3b1c] mb-1.5">
+              {headerText}
+            </h1>
+            <p className="text-xs sm:text-sm font-medium tracking-wide text-[#5c1c1c] leading-relaxed">
+              {subText}
+            </p>
+          </div>
         </div>
 
       </div>
