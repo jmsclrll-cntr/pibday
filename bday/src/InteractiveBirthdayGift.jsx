@@ -186,8 +186,8 @@ function GiftFace({ className = '', isShaded = false }) {
       ))}
 
       {/* Vertical Red Ribbon down center with rounded soft contours */}
-      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-12 sm:w-14 bg-[#E52521] border-x-[3px] border-[#2B0505] shadow-[inset_0_0_10px_rgba(0,0,0,0.3)] flex items-center justify-center">
-        <div className="w-2 h-full bg-white/20 blur-[0.5px]" />
+      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-14 sm:w-16 md:w-20 bg-[#E52521] border-x-[3px] border-[#2B0505] shadow-[inset_0_0_10px_rgba(0,0,0,0.3)] flex items-center justify-center">
+        <div className="w-2.5 h-full bg-white/20 blur-[0.5px]" />
       </div>
     </div>
   );
@@ -207,35 +207,35 @@ function LidFaces({ animState = 'idle' }) {
     <div className={`lid-wrap ${animClass}`}>
       {/* Front rim */}
       <div className="lid-face lid-front rounded-b-xl bg-[#1E8C4D] border-[3px] border-[#0e3b1c] overflow-hidden">
-        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-12 sm:w-14 bg-[#E52521] border-x-[3px] border-[#2B0505]" />
+        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-14 sm:w-16 md:w-20 bg-[#E52521] border-x-[3px] border-[#2B0505]" />
         <span className="absolute top-3 left-4 w-3 h-3 rounded-full bg-white border border-black/20" />
         <span className="absolute top-3 right-4 w-3 h-3 rounded-full bg-white border border-black/20" />
       </div>
 
       {/* Back rim */}
       <div className="lid-face lid-back rounded-b-xl bg-[#146838] border-[3px] border-[#0e3b1c] overflow-hidden">
-        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-12 sm:w-14 bg-[#D31D1D] border-x-[3px] border-[#2B0505]" />
+        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-14 sm:w-16 md:w-20 bg-[#D31D1D] border-x-[3px] border-[#2B0505]" />
       </div>
 
       {/* Left rim */}
       <div className="lid-face lid-left rounded-b-xl bg-[#146838] border-[3px] border-[#0e3b1c] overflow-hidden">
-        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-12 sm:w-14 bg-[#D31D1D] border-x-[3px] border-[#2B0505]" />
+        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-14 sm:w-16 md:w-20 bg-[#D31D1D] border-x-[3px] border-[#2B0505]" />
         <span className="absolute top-3 left-4 w-3 h-3 rounded-full bg-white border border-black/20" />
       </div>
 
       {/* Right rim */}
       <div className="lid-face lid-right rounded-b-xl bg-[#1E8C4D] border-[3px] border-[#0e3b1c] overflow-hidden">
-        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-12 sm:w-14 bg-[#E52521] border-x-[3px] border-[#2B0505]" />
+        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-14 sm:w-16 md:w-20 bg-[#E52521] border-x-[3px] border-[#2B0505]" />
         <span className="absolute top-3 right-4 w-3 h-3 rounded-full bg-white border border-black/20" />
       </div>
 
       {/* Lid Top Face (Precisely centered, darker emerald facet with crossing ribbon & 3D bow) */}
       <div className="lid-face lid-top rounded-2xl bg-[#12532B] border-[3px] border-[#0e3b1c] overflow-visible shadow-[inset_0_0_15px_rgba(0,0,0,0.3)]">
         {/* Ribbon Cross: Vertical band */}
-        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-12 sm:w-14 bg-[#E52521] border-x-[3px] border-[#2B0505]" />
+        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-14 sm:w-16 md:w-20 bg-[#E52521] border-x-[3px] border-[#2B0505]" />
 
         {/* Ribbon Cross: Horizontal band */}
-        <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-12 sm:h-14 bg-[#E52521] border-y-[3px] border-[#2B0505]" />
+        <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-14 sm:h-16 md:h-20 bg-[#E52521] border-y-[3px] border-[#2B0505]" />
 
         {/* Top white polka dots */}
         <span className="absolute top-4 left-4 w-3.5 h-3.5 rounded-full bg-white border border-black/20" />
