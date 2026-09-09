@@ -55,7 +55,7 @@ function CartoonBow({ showTails = true }) {
   return (
     <svg
       viewBox="0 0 200 160"
-      className="w-56 sm:w-64 h-auto drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] select-none pointer-events-none"
+      className="w-64 sm:w-80 md:w-96 h-auto drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] select-none pointer-events-none"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

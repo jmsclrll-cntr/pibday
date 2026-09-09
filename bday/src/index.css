@@ -69,7 +69,7 @@
     transform: translateY(0px);
   }
   100% {
-    transform: translateY(-280px);
+    transform: translateY(-380px);
   }
 }
 
@@ -80,7 +80,7 @@
 /* Lid closing: smoothly slides DOWNWARD back onto the box */
 @keyframes lidSlideDownReturn {
   0% {
-    transform: translateY(-280px);
+    transform: translateY(-380px);
   }
   100% {
     transform: translateY(0px);
@@ -97,7 +97,7 @@
     transform: translateY(0px);
   }
   100% {
-    transform: translateY(280px);
+    transform: translateY(380px);
   }
 }
 
@@ -108,7 +108,7 @@
 /* Box closing: smoothly slides UPWARD back to meet the lid */
 @keyframes boxSlideUpReturn {
   0% {
-    transform: translateY(280px);
+    transform: translateY(380px);
   }
   100% {
     transform: translateY(0px);
@@ -188,26 +188,6 @@
   animation: smoothSceneFade 0.85s ease-in-out forwards;
 }
 
-/* Sizing variables for 3D gift box */
-:root {
-  --box-size: 240px;
-  --box-half: 120px;
-  --lid-size: 258px;
-  --lid-half: 129px;
-  --lid-height: 50px;
-  --lid-height-half: 25px;
-}
-
-@media (min-width: 640px) {
-  :root {
-    --box-size: 280px;
-    --box-half: 140px;
-    --lid-size: 300px;
-    --lid-half: 150px;
-    --lid-height: 58px;
-    --lid-height-half: 29px;
-  }
-}
 
 /* Each face of the box */
 .box-face {
@@ -439,39 +419,39 @@
 }
 
 /* ==============================================
-   RESPONSIVE SIZING
+   RESPONSIVE SIZING (Bigger Gift Box)
    ============================================== */
 
-/* Mobile: smaller box */
+/* Mobile: bigger box */
 :root {
-  --box-size: 160px;
-  --box-half: 80px;
-  --lid-size: 176px;
-  --lid-half: 88px;
-  --lid-height: 40px;
-  --lid-height-half: 20px;
+  --box-size: 240px;
+  --box-half: 120px;
+  --lid-size: 260px;
+  --lid-half: 130px;
+  --lid-height: 52px;
+  --lid-height-half: 26px;
 }
 
 /* Tablet+ */
 @media (min-width: 640px) {
   :root {
-    --box-size: 200px;
-    --box-half: 100px;
-    --lid-size: 220px;
-    --lid-half: 110px;
-    --lid-height: 50px;
-    --lid-height-half: 25px;
+    --box-size: 300px;
+    --box-half: 150px;
+    --lid-size: 326px;
+    --lid-half: 163px;
+    --lid-height: 64px;
+    --lid-height-half: 32px;
   }
 }
 
 /* Desktop */
 @media (min-width: 1024px) {
   :root {
-    --box-size: 240px;
-    --box-half: 120px;
-    --lid-size: 264px;
-    --lid-half: 132px;
-    --lid-height: 60px;
-    --lid-height-half: 30px;
+    --box-size: 350px;
+    --box-half: 175px;
+    --lid-size: 380px;
+    --lid-half: 190px;
+    --lid-height: 74px;
+    --lid-height-half: 37px;
   }
 }
